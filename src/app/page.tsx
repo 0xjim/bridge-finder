@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { Inter } from 'next/font/google'
 import dynamic from 'next/dynamic'
+import Image from 'next/image'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -97,6 +98,15 @@ export default function BridgeFinder() {
     <div className={`min-h-screen bg-gradient-to-r from-lime-300 via-yellow-300 to-pink-300 ${inter.className} flex items-center justify-center p-6`}>
       <div className="max-w-3xl w-full mx-auto relative">
         <header className="text-center mb-12 relative">
+          <div className="flex justify-center mb-6">
+            <Image
+              src="/crying-wojak.jpg"
+              alt="Crying Wojak"
+              width={120}
+              height={120}
+              priority
+            />
+          </div>
           <h1 className="text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 transform hover:scale-105 transition-transform cursor-pointer pb-2">
             TOO MANY BRIDGES!!
           </h1>
@@ -118,11 +128,13 @@ export default function BridgeFinder() {
                 transition-all text-base font-bold bg-white/90 backdrop-blur-sm"
               disabled={loading}
             />
-            {loading ? (
-              <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 animate-spin h-6 w-6 text-purple-500" />
-            ) : (
-              <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 text-purple-500 animate-pulse" size={24} />
-            )}
+            <div className="absolute right-6 top-1/2 -translate-y-1/2">
+              {loading ? (
+                <Loader2 className="animate-spin h-6 w-6 text-purple-500" />
+              ) : (
+                <Sparkles className="text-purple-500 animate-pulse" size={24} />
+              )}
+            </div>
           </div>
           
           <button
