@@ -66,6 +66,12 @@ const capitalizeWords = (str: string): string => {
   ).join(' ')
 }
 
+// Add this type at the top of the file
+type Bridge = {
+  name: string;
+  url: string;
+}
+
 export async function POST(request: Request) {
   try {
     process.stdout.write('\n\n=== API ROUTE STARTED ===\n')
@@ -108,7 +114,7 @@ export async function POST(request: Request) {
               return NextResponse.json({
                 sourceChain: capitalizeWords(data.sourcechain),
                 destinationChain: capitalizeWords(data.destinationchain),
-                bridges: data.bridges.map(bridge => ({
+                bridges: data.bridges.map((bridge: Bridge) => ({
                   name: capitalizeWords(bridge.name),
                   url: bridge.url
                 }))

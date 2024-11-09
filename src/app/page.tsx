@@ -159,25 +159,37 @@ export default function BridgeFinder() {
         </form>
 
         {loading && (
-          <div className="p-6 bg-purple-100/90 text-purple-900 rounded-2xl border-4 border-purple-400 
+          <div className="p-6 bg-white/90 text-purple-900 rounded-2xl border-4 border-purple-400 
             shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm mt-6">
             <Loader2 className="h-8 w-8 text-purple-500 animate-spin flex-shrink-0" />
             <div>
-              <p className="font-bold">
-                Finding your perfect bridge... ✨
+              <p className="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
+                FINDING YOUR PERFECT BRIDGE... ✨
               </p>
-              <p className="text-sm text-purple-700 mt-1">
-                First time might take ~2 minutes. Please wait! 🙏
+              <p className="font-bold text-purple-700 mt-1">
+                FIRST TIME MIGHT TAKE ~2 MINS!! WAIT FOR IT!! 🙏
               </p>
             </div>
           </div>
         )}
 
         {!loading && result?.error && (
-          <div className="p-6 bg-red-100/90 text-red-900 rounded-2xl border-4 border-red-400 
+          <div className="p-6 bg-white/90 text-red-900 rounded-2xl border-4 border-red-400 
             shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
             <AlertCircle className="h-8 w-8 text-red-500 flex-shrink-0" />
-            <p className="font-bold">{result.error}</p>
+            <p className="text-xl font-black bg-gradient-to-r from-red-600 to-pink-500 text-transparent bg-clip-text">
+              {result.error} TRY AGAIN IN A FEW SECS!! ✨
+            </p>
+          </div>
+        )}
+
+        {result && result.bridges.length === 0 && !result.error && (
+          <div className="p-6 bg-white/90 text-yellow-900 rounded-2xl border-4 border-yellow-400 
+            shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
+            <AlertCircle className="h-8 w-8 text-yellow-500 flex-shrink-0" />
+            <p className="text-xl font-black bg-gradient-to-r from-yellow-600 to-pink-500 text-transparent bg-clip-text">
+              NO BRIDGES FOUND!! TRY DIFFERENT CHAINS!! ✨
+            </p>
           </div>
         )}
 
@@ -220,16 +232,6 @@ export default function BridgeFinder() {
                 </div>
               ))}
             </div>
-          </div>
-        )}
-
-        {result && result.bridges.length === 0 && !result.error && (
-          <div className="p-6 bg-yellow-100/90 text-yellow-900 rounded-2xl border-4 border-yellow-400 
-            shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
-            <AlertCircle className="h-8 w-8 text-yellow-500 flex-shrink-0" />
-            <p className="font-bold">
-              NO BRIDGES FOUND! TRY DIFFERENT CHAINS! ✨
-            </p>
           </div>
         )}
 
