@@ -1,5 +1,4 @@
 import { NextResponse } from 'next/server'
-import crypto from 'crypto'
 
 export const runtime = 'edge'
 export const maxDuration = 120  // 2 minutes in seconds
@@ -16,7 +15,11 @@ if (!AIRTABLE_API_KEY || !AIRTABLE_BASE_ID || !AIRTABLE_TABLE_NAME) {
 const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 
 // Generate a unique request ID
-const generateRequestId = () => crypto.randomUUID()
+const generateRequestId = () => {
+  const array = new Uint8Array(16)
+  crypto.getRandomValues(array)
+  return Array.from(array, byte => byte.toString(16).padStart(2, '0')).join('')
+}
 
 const fetchFromAirtable = async (requestId: string) => {
   const filterFormula = encodeURIComponent(`IF(LOWER({requestId})=LOWER("${requestId}"),1,0)`)
