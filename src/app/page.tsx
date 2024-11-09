@@ -31,47 +31,50 @@ export default function BridgeFinder() {
   const [query, setQuery] = useState('')
   const [result, setResult] = useState<BridgeResult | null>(null)
   const [loading, setLoading] = useState(false)
+  const [requestId, setRequestId] = useState<string | null>(null)
 
-  const fetchBridges = async (query: string): Promise<BridgeResult> => {
-    try {
-      const response = await fetch('/api/bridges', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ query })
-      })
+  const startBridgeRequest = async (query: string): Promise<string> => {
+    const response = await fetch('/api/bridges/start', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query })
+    })
 
-      if (!response.ok) {
-        const errorText = await response.text();
-        console.error('Zapier response not ok:', errorText);
-        throw new Error('Failed to fetch bridges');
-      }
+    if (!response.ok) {
+      throw new Error('Failed to start bridge request')
+    }
 
-      const data = await response.json();
-      console.log('API Response:', data);
+    const data = await response.json()
+    return data.requestId
+  }
 
-      if (!data || typeof data !== 'object') {
-        throw new Error('Invalid response format');
-      }
+  const checkBridgeStatus = async (requestId: string): Promise<BridgeResult> => {
+    const response = await fetch('/api/bridges/status', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ requestId })
+    })
 
-      return {
-        sourceChain: data.sourceChain || data.source_chain || '',
-        destinationChain: data.destinationChain || data.destination_chain || '',
-        bridges: Array.isArray(data.bridges) ? data.bridges.map((bridge: { name: string; url?: string; link?: string }) => ({
-          name: bridge.name || 'Unknown Bridge',
-          url: bridge.url || bridge.link || '#'
-        })) : [],
-        error: data.error
-      }
-    } catch (_error) {
-      console.error('Error fetching bridges:', _error);
+    if (!response.ok) {
+      throw new Error('Failed to check bridge status')
+    }
+
+    const data = await response.json()
+    
+    if (data.status === 'pending') {
       return {
         sourceChain: '',
         destinationChain: '',
         bridges: [],
-        error: 'Failed to fetch bridges. Please try again.'
+        error: 'Still processing...'
       }
+    }
+
+    return {
+      sourceChain: data.sourceChain || '',
+      destinationChain: data.destinationChain || '',
+      bridges: data.bridges || [],
+      error: data.error
     }
   }
 
@@ -81,16 +84,59 @@ export default function BridgeFinder() {
     setResult(null)
     
     try {
-      const result = await fetchBridges(query)
-      setResult(result)
+      // Start the request
+      const newRequestId = await startBridgeRequest(query)
+      setRequestId(newRequestId)
+
+      // Poll for results
+      let attempts = 0
+      const maxAttempts = 12 // 2 minutes (12 * 10 seconds)
+
+      const checkResult = async () => {
+        if (attempts >= maxAttempts) {
+          setResult({
+            sourceChain: '',
+            destinationChain: '',
+            bridges: [],
+            error: 'Request timed out. Please try again.'
+          })
+          setLoading(false)
+          return
+        }
+
+        try {
+          const result = await checkBridgeStatus(newRequestId)
+          if (result.bridges.length > 0) {
+            setResult(result)
+            setLoading(false)
+          } else if (result.error !== 'Still processing...') {
+            setResult(result)
+            setLoading(false)
+          } else {
+            attempts++
+            setTimeout(checkResult, 10000) // Check again in 10 seconds
+          }
+        } catch (error) {
+          setResult({
+            sourceChain: '',
+            destinationChain: '',
+            bridges: [],
+            error: 'Failed to check status. Please try again.'
+          })
+          setLoading(false)
+        }
+      }
+
+      // Start polling
+      setTimeout(checkResult, 10000) // First check after 10 seconds
+
     } catch (error) {
       setResult({
         sourceChain: '',
         destinationChain: '',
         bridges: [],
-        error: 'Failed to fetch bridges. Please try again.'
+        error: 'Failed to start request. Please try again.'
       })
-    } finally {
       setLoading(false)
     }
   }
