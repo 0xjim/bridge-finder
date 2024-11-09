@@ -94,18 +94,18 @@ export default function BridgeFinder() {
   }
 
   return (
-    <div className={`min-h-screen bg-gradient-to-r from-lime-300 via-yellow-300 to-pink-300 ${inter.className} flex items-center justify-center p-8`}>
-      <div className="max-w-4xl w-full mx-auto relative">
-        <header className="text-center mb-16 relative">
-          <h1 className="text-7xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 transform hover:scale-105 transition-transform cursor-pointer pb-2">
+    <div className={`min-h-screen bg-gradient-to-r from-lime-300 via-yellow-300 to-pink-300 ${inter.className} flex items-center justify-center p-6`}>
+      <div className="max-w-3xl w-full mx-auto relative">
+        <header className="text-center mb-12 relative">
+          <h1 className="text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 transform hover:scale-105 transition-transform cursor-pointer pb-2">
             TOO MANY BRIDGES!!
           </h1>
-          <p className="text-2xl font-bold text-purple-700 animate-bounce">
-            ⚡️ FIND YOUR PERFECT BRIDGE NOW ⚡️
+          <p className="text-xl font-bold text-purple-700 animate-bounce">
+            👇👇 FIND YOUR PERFECT BRIDGE NOW 👇👇
           </p>
         </header>
 
-        <form onSubmit={handleSubmit} className="space-y-8 mb-16">
+        <form onSubmit={handleSubmit} className="space-y-6 mb-12">
           <div className="relative group transform hover:scale-101 transition-transform">
             <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 group-hover:opacity-30 transition-opacity blur-xl"></div>
             <input
@@ -113,33 +113,33 @@ export default function BridgeFinder() {
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="TYPE YOUR BRIDGE DREAMS HERE ('LEMME GO FROM BASE TO ARBITRUM')"
-              className="w-full p-6 rounded-full border-4 border-purple-400 shadow-xl 
+              className="w-full p-4 rounded-full border-4 border-purple-400 shadow-xl 
                 focus:ring-4 focus:ring-yellow-300 focus:border-purple-500 
-                transition-all text-xl font-bold bg-white/90 backdrop-blur-sm"
+                transition-all text-base font-bold bg-white/90 backdrop-blur-sm"
               disabled={loading}
             />
             {loading ? (
-              <Loader2 className="absolute right-6 top-1/2 -translate-y-1/2 animate-spin h-8 w-8 text-purple-500" />
+              <Loader2 className="absolute right-4 top-1/2 -translate-y-1/2 animate-spin h-6 w-6 text-purple-500" />
             ) : (
-              <Sparkles className="absolute right-6 top-1/2 -translate-y-1/2 text-purple-500 animate-pulse" size={32} />
+              <Sparkles className="absolute right-4 top-1/2 -translate-y-1/2 text-purple-500 animate-pulse" size={24} />
             )}
           </div>
           
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-8 py-5 text-xl font-black text-white rounded-full
+            className="w-full px-6 py-4 text-lg font-black text-white rounded-full
               bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 
               hover:opacity-90 transition-opacity transform hover:scale-105
               disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
               shadow-xl border-4 border-purple-400 relative overflow-hidden"
           >
             {loading ? (
-              <Loader2 className="animate-spin mx-auto h-8 w-8" />
+              <Loader2 className="animate-spin mx-auto h-6 w-6" />
             ) : (
               <span className="flex items-center justify-center space-x-3">
-                <span>LET'S GOO</span>
-                <Zap className="w-6 h-6" />
+                <span>LET'S GOOO</span>
+                <Zap className="w-5 h-5" />
               </span>
             )}
           </button>
@@ -154,29 +154,29 @@ export default function BridgeFinder() {
         )}
 
         {result && result.bridges.length > 0 && (
-          <div className="space-y-10 animate-fade-in">
-            <div className="flex justify-center items-center space-x-8">
-              <span className="px-8 py-4 rounded-full bg-blue-400 text-white font-black text-lg border-4 border-blue-500 shadow-xl transform hover:rotate-3 transition-transform">
+          <div className="space-y-8 animate-fade-in">
+            <div className="flex justify-center items-center space-x-6">
+              <span className="px-6 py-3 rounded-full bg-blue-400 text-white font-black text-base border-4 border-blue-500 shadow-xl transform hover:rotate-3 transition-transform">
                 {result.sourceChain} ⚡️
               </span>
-              <ArrowRight className="text-purple-600 w-8 h-8 animate-pulse" />
-              <span className="px-8 py-4 rounded-full bg-green-400 text-white font-black text-lg border-4 border-green-500 shadow-xl transform hover:-rotate-3 transition-transform">
+              <ArrowRight className="text-purple-600 w-6 h-6 animate-pulse" />
+              <span className="px-6 py-3 rounded-full bg-green-400 text-white font-black text-base border-4 border-green-500 shadow-xl transform hover:-rotate-3 transition-transform">
                 {result.destinationChain} 🚀
               </span>
             </div>
             
-            <div className="grid gap-8 md:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2">
               {result.bridges.map((bridge, index) => (
                 <div 
                   key={index}
-                  className="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-xl border-4 border-purple-300 
+                  className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-xl border-4 border-purple-300 
                     transform hover:scale-105 transition-all hover:rotate-1"
                 >
-                  <div className="flex justify-between items-center mb-6">
-                    <h3 className="text-2xl font-black bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
+                  <div className="flex justify-between items-center mb-4">
+                    <h3 className="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
                       {bridge.name}
                     </h3>
-                    <Zap className="text-yellow-400 animate-pulse" size={28} />
+                    <Zap className="text-yellow-400 animate-pulse" size={24} />
                   </div>
                   
                   <a
@@ -184,7 +184,7 @@ export default function BridgeFinder() {
                     target="_blank"
                     rel="noopener noreferrer"
                     className="block w-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 
-                      text-white py-4 rounded-full font-black text-lg hover:opacity-90 
+                      text-white py-3 rounded-full font-black text-base hover:opacity-90 
                       transition-opacity transform hover:scale-105 shadow-lg text-center"
                   >
                     BRIDGE NOW!!! ✨
@@ -205,8 +205,8 @@ export default function BridgeFinder() {
           </div>
         )}
 
-        <footer className="text-center mt-16">
-          <p className="text-purple-700 font-bold text-lg">
+        <footer className="text-center mt-12">
+          <p className="text-purple-700 font-bold text-base">
             built by{' '}
             <a 
               href="https://x.com/0xJim" 
