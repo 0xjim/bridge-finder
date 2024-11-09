@@ -78,6 +78,7 @@ export default function BridgeFinder() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
+    setResult(null)
     
     try {
       const result = await fetchBridges(query)
@@ -172,7 +173,7 @@ export default function BridgeFinder() {
           </div>
         )}
 
-        {result?.error && (
+        {!loading && result?.error && (
           <div className="p-6 bg-red-100/90 text-red-900 rounded-2xl border-4 border-red-400 
             shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
             <AlertCircle className="h-8 w-8 text-red-500 flex-shrink-0" />
