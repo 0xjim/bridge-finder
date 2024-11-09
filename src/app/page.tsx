@@ -157,6 +157,21 @@ export default function BridgeFinder() {
           </button>
         </form>
 
+        {loading && (
+          <div className="p-6 bg-purple-100/90 text-purple-900 rounded-2xl border-4 border-purple-400 
+            shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm mt-6">
+            <Loader2 className="h-8 w-8 text-purple-500 animate-spin flex-shrink-0" />
+            <div>
+              <p className="font-bold">
+                Finding your perfect bridge... ✨
+              </p>
+              <p className="text-sm text-purple-700 mt-1">
+                First time might take ~2 minutes. Please wait! 🙏
+              </p>
+            </div>
+          </div>
+        )}
+
         {result?.error && (
           <div className="p-6 bg-red-100/90 text-red-900 rounded-2xl border-4 border-red-400 
             shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
