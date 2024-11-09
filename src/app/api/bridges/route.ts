@@ -77,10 +77,8 @@ export async function POST(request: Request) {
 
     // Generate unique ID for this request
     const requestId = generateRequestId()
-    process.stdout.write(`📝 Generated requestId: ${requestId}\n`)
     
     // Send to Zapier with request ID
-    process.stdout.write('🚀 Sending to Zapier...\n')
     await fetch('https://hooks.zapier.com/hooks/catch/20650024/255m979/', {
       method: 'POST',
       headers: {
@@ -92,18 +90,16 @@ export async function POST(request: Request) {
       })
     })
 
-    // Wait for initial delay
-    await delay(3000)
+    // Reduce initial delay
+    await delay(1000)
 
-    // Query Airtable with retries
-    for (let i = 0; i < 6; i++) {
+    // Reduce number of retries and delay between them
+    for (let i = 0; i < 3; i++) {
       try {
         const record = await fetchFromAirtable(requestId)
         if (record?.query) {
           try {
             const data = JSON.parse(record.query)
-            process.stdout.write(`📦 Parsed data: ${JSON.stringify(data, null, 2)}\n`)
-
             if (data.sourcechain && data.destinationchain && Array.isArray(data.bridges)) {
               return NextResponse.json({
                 sourceChain: capitalizeWords(data.sourcechain),
@@ -113,30 +109,31 @@ export async function POST(request: Request) {
                   url: bridge.url
                 }))
               })
-            } else {
-              throw new Error('Invalid data structure from Airtable')
             }
           } catch (e) {
-            process.stdout.write(`❌ Error parsing JSON from Airtable: ${e}\n`)
-            process.stdout.write(`❌ Raw query data: ${record.query}\n`)
+            console.error('Error parsing JSON:', e)
           }
         }
       } catch (e) {
-        process.stdout.write(`❌ Airtable fetch attempt ${i + 1} failed: ${e}\n`)
+        console.error(`Attempt ${i + 1} failed:`, e)
       }
-      await delay(10000)
+      await delay(2000) // Reduced delay between retries
     }
 
-    throw new Error('Failed to get valid response after retries')
+    return NextResponse.json({
+      sourceChain: '',
+      destinationChain: '',
+      bridges: [],
+      error: 'Please try again in a few seconds...'
+    })
 
   } catch (error) {
-    process.stdout.write(`❌ API Error: ${error}\n`)
     return NextResponse.json(
       { 
         sourceChain: '',
         destinationChain: '',
         bridges: [],
-        error: error instanceof Error ? error.message : 'Unknown error occurred'
+        error: 'Something went wrong. Please try again.'
       },
       { status: 500 }
     )
