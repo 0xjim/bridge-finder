@@ -1,6 +1,9 @@
 import { NextResponse } from 'next/server'
 import crypto from 'crypto'
 
+export const runtime = 'edge'
+export const maxDuration = 120  // 2 minutes in seconds
+
 // Get environment variables with error checking
 const AIRTABLE_API_KEY = process.env.AIRTABLE_API_KEY
 const AIRTABLE_BASE_ID = process.env.AIRTABLE_BASE_ID
@@ -16,15 +19,8 @@ const delay = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))
 const generateRequestId = () => crypto.randomUUID()
 
 const fetchFromAirtable = async (requestId: string) => {
-  // Use IF and LOWER for exact matching
   const filterFormula = encodeURIComponent(`IF(LOWER({requestId})=LOWER("${requestId}"),1,0)`)
   const url = `https://api.airtable.com/v0/${AIRTABLE_BASE_ID}/${AIRTABLE_TABLE_NAME}?filterByFormula=${filterFormula}&fields%5B%5D=query`
-  
-  process.stdout.write('\n=== AIRTABLE REQUEST DETAILS ===\n')
-  process.stdout.write(`🔍 RequestId: ${requestId}\n`)
-  process.stdout.write(`🔍 Filter Formula (raw): IF(LOWER({requestId})=LOWER("${requestId}"),1,0)\n`)
-  process.stdout.write(`🔍 Filter Formula (encoded): ${filterFormula}\n`)
-  process.stdout.write(`🔍 Full URL: ${url}\n`)
   
   const response = await fetch(url, {
     headers: {
@@ -32,29 +28,15 @@ const fetchFromAirtable = async (requestId: string) => {
     }
   })
 
-  process.stdout.write(`📡 Response Status: ${response.status}\n`)
-  process.stdout.write(`📡 Response Headers: ${JSON.stringify(Object.fromEntries(response.headers.entries()), null, 2)}\n`)
-
   if (!response.ok) {
-    const errorText = await response.text()
-    process.stdout.write(`❌ Airtable error response: ${errorText}\n`)
     throw new Error(`Failed to fetch from Airtable: ${response.status}`)
   }
 
   const data = await response.json()
-  process.stdout.write(`📦 Airtable response data: ${JSON.stringify(data, null, 2)}\n`)
   
   if (!data.records || data.records.length === 0) {
-    process.stdout.write('⚠️ No records found in Airtable\n')
-    process.stdout.write('⚠️ This might mean:\n')
-    process.stdout.write('   - The requestId does not exist\n')
-    process.stdout.write('   - The filter formula is incorrect\n')
-    process.stdout.write('   - The record has not been created yet\n')
     return null
   }
-
-  process.stdout.write(`✅ Found record with fields: ${JSON.stringify(data.records[0].fields, null, 2)}\n`)
-  process.stdout.write('=== END AIRTABLE REQUEST ===\n\n')
 
   return data.records[0]?.fields
 }
@@ -74,72 +56,78 @@ type Bridge = {
 
 export async function POST(request: Request) {
   try {
-    process.stdout.write('\n\n=== API ROUTE STARTED ===\n')
     const body = await request.json()
     
     if (!body.query) {
       throw new Error('No query provided')
     }
 
-    // Generate unique ID for this request
     const requestId = generateRequestId()
-    process.stdout.write(`📝 Generated requestId: ${requestId}\n`)
+    console.log('Generated requestId:', requestId)
     
-    // Send to Zapier with request ID
-    process.stdout.write('🚀 Sending to Zapier...\n')
-    await fetch('https://hooks.zapier.com/hooks/catch/20650024/255m979/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        requestId,
-        query: body.query
+    try {
+      const zapierResponse = await fetch('https://hooks.zapier.com/hooks/catch/20650024/255m979/', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          requestId,
+          query: body.query
+        })
       })
-    })
 
-    // Wait for initial delay
-    await delay(10000) // Initial 10 second delay
+      if (!zapierResponse.ok) {
+        console.error('Zapier request failed:', await zapierResponse.text())
+        throw new Error('Failed to send request to Zapier')
+      }
+    } catch (e) {
+      console.error('Error sending to Zapier:', e)
+      throw new Error('Failed to send request to Zapier')
+    }
 
-    // Query Airtable with retries
-    for (let i = 0; i < 12; i++) { // Try for up to 2 minutes (12 * 10 seconds)
+    await delay(10000)
+
+    for (let i = 0; i < 11; i++) {
+      console.log(`Attempt ${i + 1} to fetch from Airtable`)
       try {
         const record = await fetchFromAirtable(requestId)
         if (record?.query) {
-          try {
-            const data = JSON.parse(record.query)
-            process.stdout.write(`📦 Parsed data: ${JSON.stringify(data, null, 2)}\n`)
-
-            if (data.sourcechain && data.destinationchain && Array.isArray(data.bridges)) {
-              return NextResponse.json({
-                sourceChain: capitalizeWords(data.sourcechain),
-                destinationChain: capitalizeWords(data.destinationchain),
-                bridges: data.bridges.map((bridge: Bridge) => ({
-                  name: capitalizeWords(bridge.name),
-                  url: bridge.url
-                }))
-              })
-            }
-          } catch (e) {
-            process.stdout.write(`❌ Error parsing JSON: ${e}\n`)
+          const data = JSON.parse(record.query)
+          console.log('Parsed data:', data)
+          
+          if (data.sourcechain && data.destinationchain && Array.isArray(data.bridges)) {
+            return NextResponse.json({
+              sourceChain: capitalizeWords(data.sourcechain),
+              destinationChain: capitalizeWords(data.destinationchain),
+              bridges: data.bridges.map((bridge: Bridge) => ({
+                name: capitalizeWords(bridge.name),
+                url: bridge.url
+              }))
+            })
           }
         }
       } catch (e) {
-        process.stdout.write(`❌ Airtable fetch attempt ${i + 1} failed: ${e}\n`)
+        console.error(`Attempt ${i + 1} failed:`, e)
       }
-      await delay(10000) // Wait 10 seconds between attempts
+      await delay(10000)
     }
 
-    throw new Error('Failed to get valid response after retries')
+    return NextResponse.json({
+      sourceChain: '',
+      destinationChain: '',
+      bridges: [],
+      error: 'Still processing. Please try again in a few seconds.'
+    })
 
   } catch (error) {
-    process.stdout.write(`❌ API Error: ${error}\n`)
+    console.error('API Error:', error)
     return NextResponse.json(
       { 
         sourceChain: '',
         destinationChain: '',
         bridges: [],
-        error: error instanceof Error ? error.message : 'Unknown error occurred'
+        error: error instanceof Error ? error.message : 'Please try again in a moment.'
       },
       { status: 500 }
     )
