@@ -23,6 +23,7 @@ const ArrowRight = dynamic(() => import('lucide-react').then(mod => mod.ArrowRig
 const Loader2 = dynamic(() => import('lucide-react').then(mod => mod.Loader2))
 const AlertCircle = dynamic(() => import('lucide-react').then(mod => mod.AlertCircle))
 
+
 export default function BridgeFinder() {
   const [query, setQuery] = useState('')
   const [result, setResult] = useState<BridgeResult | null>(null)
@@ -91,20 +92,20 @@ export default function BridgeFinder() {
   }
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 ${inter.className}`}>
-      <div className="max-w-3xl mx-auto px-6 py-12 space-y-12">
-        <header className="text-center space-y-8">
+    <div className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 ${inter.className} flex items-center justify-center`}>
+      <div className="max-w-3xl w-full mx-auto px-6 py-12">
+        <header className="text-center space-y-8 mb-12">
           <div className="space-y-4">
             <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent inline-block pb-2">
-              Cross-Chain Bridge Finder
+              Too Many Bridges
             </h1>
             <p className="text-xl text-gray-600 mt-6">
-              Discover the best bridges for your cross-chain transfers
+              Find the best bridges for your cross-chain transfers
             </p>
           </div>
         </header>
 
-        <form onSubmit={handleSubmit} className="space-y-6 transform transition-all duration-300">
+        <form onSubmit={handleSubmit} className="space-y-6 transform transition-all duration-300 mb-12">
           <div className="relative group">
             <input
               type="text"
@@ -149,14 +150,14 @@ export default function BridgeFinder() {
 
         {result?.error && (
           <div className="p-4 bg-red-50 text-red-900 rounded-xl border border-red-100 shadow-sm
-            flex items-center gap-3 animate-fade-in">
+            flex items-center gap-3 animate-fade-in mt-12">
             <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
             <p className="text-sm">{result.error}</p>
           </div>
         )}
 
         {result && result.bridges.length > 0 && (
-          <div className="space-y-8 animate-fade-in">
+          <div className="space-y-8 animate-fade-in mt-12">
             <div className="flex justify-center items-center space-x-6">
               <span className="px-6 py-3 rounded-full bg-blue-100 text-blue-800 font-semibold shadow-sm">
                 {result.sourceChain}
@@ -201,7 +202,7 @@ export default function BridgeFinder() {
 
         {result && result.bridges.length === 0 && !result.error && (
           <div className="p-4 bg-yellow-50 text-yellow-900 rounded-xl border border-yellow-100 
-            shadow-sm flex items-center gap-3 animate-fade-in">
+            shadow-sm flex items-center gap-3 animate-fade-in mt-12">
             <AlertCircle className="h-5 w-5 text-yellow-500 flex-shrink-0" />
             <p className="text-sm">
               No bridges found for this route. Please try different chains or check your input.

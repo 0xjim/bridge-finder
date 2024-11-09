@@ -108,7 +108,7 @@ export async function POST(request: Request) {
               return NextResponse.json({
                 sourceChain: capitalizeWords(data.sourcechain),
                 destinationChain: capitalizeWords(data.destinationchain),
-                bridges: data.bridges.map(bridge => ({
+                bridges: data.bridges.map((bridge: { name: string; url: string }) => ({
                   name: capitalizeWords(bridge.name),
                   url: bridge.url
                 }))
