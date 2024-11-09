@@ -22,6 +22,8 @@ type BridgeResult = {
 const ArrowRight = dynamic(() => import('lucide-react').then(mod => mod.ArrowRight))
 const Loader2 = dynamic(() => import('lucide-react').then(mod => mod.Loader2))
 const AlertCircle = dynamic(() => import('lucide-react').then(mod => mod.AlertCircle))
+const Sparkles = dynamic(() => import('lucide-react').then(mod => mod.Sparkles))
+const Zap = dynamic(() => import('lucide-react').then(mod => mod.Zap))
 
 
 export default function BridgeFinder() {
@@ -92,108 +94,101 @@ export default function BridgeFinder() {
   }
 
   return (
-    <div className={`min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 ${inter.className} flex items-center justify-center`}>
-      <div className="max-w-3xl w-full mx-auto px-6 py-12">
-        <header className="text-center space-y-8 mb-12">
-          <div className="space-y-4">
-            <h1 className="text-5xl font-bold bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent inline-block pb-2">
-              Too Many Bridges
-            </h1>
-            <p className="text-xl text-gray-600 mt-6">
-              Find the best bridges for your cross-chain transfers
-            </p>
-          </div>
+    <div className={`min-h-screen bg-gradient-to-r from-lime-300 via-yellow-300 to-pink-300 ${inter.className} flex items-center justify-center p-8`}>
+      <div className="max-w-4xl w-full mx-auto relative">
+        <header className="text-center mb-16 relative">
+          <h1 className="text-7xl font-black mb-6 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 transform hover:scale-105 transition-transform cursor-pointer pb-2">
+            TOO MANY BRIDGES!!
+          </h1>
+          <p className="text-2xl font-bold text-purple-700 animate-bounce">
+            ⚡️ FIND YOUR PERFECT BRIDGE NOW ⚡️
+          </p>
         </header>
 
-        <form onSubmit={handleSubmit} className="space-y-6 transform transition-all duration-300 mb-12">
-          <div className="relative group">
+        <form onSubmit={handleSubmit} className="space-y-8 mb-16">
+          <div className="relative group transform hover:scale-101 transition-transform">
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full opacity-20 group-hover:opacity-30 transition-opacity blur-xl"></div>
             <input
               type="text"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="E.g., 'I want to bridge from Optimism to Arbitrum'"
-              className="w-full px-6 py-5 text-lg rounded-2xl border border-gray-300 shadow-sm 
-                focus:ring-4 focus:ring-purple-500/20 focus:border-purple-500 
-                transition-all duration-300 ease-in-out
-                group-hover:shadow-md"
+              placeholder="TYPE YOUR BRIDGE DREAMS HERE ('LEMME GO FROM BASE TO ARBITRUM')"
+              className="w-full p-6 rounded-full border-4 border-purple-400 shadow-xl 
+                focus:ring-4 focus:ring-yellow-300 focus:border-purple-500 
+                transition-all text-xl font-bold bg-white/90 backdrop-blur-sm"
               disabled={loading}
             />
-            {loading && (
-              <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                <Loader2 className="animate-spin h-6 w-6 text-purple-500" />
-              </div>
+            {loading ? (
+              <Loader2 className="absolute right-6 top-1/2 -translate-y-1/2 animate-spin h-8 w-8 text-purple-500" />
+            ) : (
+              <Sparkles className="absolute right-6 top-1/2 -translate-y-1/2 text-purple-500 animate-pulse" size={32} />
             )}
           </div>
-          <p className="text-sm text-gray-500 text-center">Write in plain English which chains you want to connect</p>
+          
           <button
             type="submit"
             disabled={loading}
-            className="w-full px-8 py-5 text-lg font-semibold text-white rounded-2xl
-              bg-gradient-to-r from-purple-600 to-blue-600 
-              hover:from-purple-700 hover:to-blue-700 
-              focus:outline-none focus:ring-4 focus:ring-purple-500/50 focus:ring-offset-2 
-              transition-all duration-300 ease-out
-              transform hover:scale-[1.02]
+            className="w-full px-8 py-5 text-xl font-black text-white rounded-full
+              bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 
+              hover:opacity-90 transition-opacity transform hover:scale-105
               disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100
-              shadow-lg hover:shadow-xl"
+              shadow-xl border-4 border-purple-400 relative overflow-hidden"
           >
             {loading ? (
-              <Loader2 className="animate-spin mx-auto h-6 w-6" />
+              <Loader2 className="animate-spin mx-auto h-8 w-8" />
             ) : (
-              <span className="flex items-center justify-center space-x-2">
-                <span>Find Bridges</span>
-                <ArrowRight className="w-5 h-5" />
+              <span className="flex items-center justify-center space-x-3">
+                <span>LET'S GOO</span>
+                <Zap className="w-6 h-6" />
               </span>
             )}
           </button>
         </form>
 
         {result?.error && (
-          <div className="p-4 bg-red-50 text-red-900 rounded-xl border border-red-100 shadow-sm
-            flex items-center gap-3 animate-fade-in mt-12">
-            <AlertCircle className="h-5 w-5 text-red-500 flex-shrink-0" />
-            <p className="text-sm">{result.error}</p>
+          <div className="p-6 bg-red-100/90 text-red-900 rounded-2xl border-4 border-red-400 
+            shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
+            <AlertCircle className="h-8 w-8 text-red-500 flex-shrink-0" />
+            <p className="font-bold">{result.error}</p>
           </div>
         )}
 
         {result && result.bridges.length > 0 && (
-          <div className="space-y-8 animate-fade-in mt-12">
-            <div className="flex justify-center items-center space-x-6">
-              <span className="px-6 py-3 rounded-full bg-blue-100 text-blue-800 font-semibold shadow-sm">
-                {result.sourceChain}
+          <div className="space-y-10 animate-fade-in">
+            <div className="flex justify-center items-center space-x-8">
+              <span className="px-8 py-4 rounded-full bg-blue-400 text-white font-black text-lg border-4 border-blue-500 shadow-xl transform hover:rotate-3 transition-transform">
+                {result.sourceChain} ⚡️
               </span>
-              <ArrowRight className="text-gray-400 w-6 h-6" />
-              <span className="px-6 py-3 rounded-full bg-green-100 text-green-800 font-semibold shadow-sm">
-                {result.destinationChain}
+              <ArrowRight className="text-purple-600 w-8 h-8 animate-pulse" />
+              <span className="px-8 py-4 rounded-full bg-green-400 text-white font-black text-lg border-4 border-green-500 shadow-xl transform hover:-rotate-3 transition-transform">
+                {result.destinationChain} 🚀
               </span>
             </div>
             
-            <div className="grid gap-6 md:grid-cols-2">
+            <div className="grid gap-8 md:grid-cols-2">
               {result.bridges.map((bridge, index) => (
                 <div 
                   key={index}
-                  className="group bg-white rounded-xl shadow-md hover:shadow-xl 
-                    transition-all duration-300 ease-out transform hover:scale-[1.02]"
+                  className="bg-white/90 backdrop-blur-sm rounded-xl p-8 shadow-xl border-4 border-purple-300 
+                    transform hover:scale-105 transition-all hover:rotate-1"
                 >
-                  <div className="p-6 space-y-4">
-                    <h3 className="text-xl font-bold text-gray-900 group-hover:text-purple-600 transition-colors">
+                  <div className="flex justify-between items-center mb-6">
+                    <h3 className="text-2xl font-black bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
                       {bridge.name}
                     </h3>
-                    <div className="border-t border-gray-100" />
-                    <a
-                      href={bridge.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block w-full px-4 py-3 text-center font-semibold text-white 
-                        bg-gradient-to-r from-purple-600 to-blue-600 
-                        rounded-lg hover:from-purple-700 hover:to-blue-700 
-                        transition-all duration-300 ease-out
-                        transform hover:scale-[1.02]
-                        shadow-md hover:shadow-lg"
-                    >
-                      Go to Bridge
-                    </a>
+                    <Zap className="text-yellow-400 animate-pulse" size={28} />
                   </div>
+                  
+                  <a
+                    href={bridge.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="block w-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 
+                      text-white py-4 rounded-full font-black text-lg hover:opacity-90 
+                      transition-opacity transform hover:scale-105 shadow-lg text-center"
+                  >
+                    BRIDGE NOW!!! ✨
+                  </a>
                 </div>
               ))}
             </div>
@@ -201,14 +196,29 @@ export default function BridgeFinder() {
         )}
 
         {result && result.bridges.length === 0 && !result.error && (
-          <div className="p-4 bg-yellow-50 text-yellow-900 rounded-xl border border-yellow-100 
-            shadow-sm flex items-center gap-3 animate-fade-in mt-12">
-            <AlertCircle className="h-5 w-5 text-yellow-500 flex-shrink-0" />
-            <p className="text-sm">
-              No bridges found for this route. Please try different chains or check your input.
+          <div className="p-6 bg-yellow-100/90 text-yellow-900 rounded-2xl border-4 border-yellow-400 
+            shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
+            <AlertCircle className="h-8 w-8 text-yellow-500 flex-shrink-0" />
+            <p className="font-bold">
+              NO BRIDGES FOUND! TRY DIFFERENT CHAINS! ✨
             </p>
           </div>
         )}
+
+        <footer className="text-center mt-16">
+          <p className="text-purple-700 font-bold text-lg">
+            built by{' '}
+            <a 
+              href="https://x.com/0xJim" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 
+                hover:scale-105 transform inline-block transition-transform"
+            >
+              0xjim 🫡
+            </a>
+          </p>
+        </footer>
       </div>
     </div>
   )
