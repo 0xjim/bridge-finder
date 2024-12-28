@@ -144,7 +144,7 @@ export default function BridgeFinder() {
               <AlertCircle className="h-8 w-8 text-red-500 flex-shrink-0" />
               <p className="text-xl font-black bg-gradient-to-r from-red-600 to-pink-500 text-transparent bg-clip-text">
                 {result.error.includes('Networks not found') || result.error.includes('Network not found')
-                  ? "THE CHAINS YOU ENTERED AREN'T REAL 👎"
+                  ? 'THE CHAINS YOU ENTERED AREN\'T REAL 🥹'
                   : result.error.includes('No bridges found')
                     ? 'NO BRIDGES FOUND FOR THESE CHAINS!! TRY DIFFERENT ONES!! ✨'
                     : 'SOMETHING WENT WRONG!! TRY AGAIN IN A FEW!! ✨'}
