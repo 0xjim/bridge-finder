@@ -38,7 +38,7 @@ export default function BridgeFinder() {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState<BridgeResult | null>(null);
   const [loading, setLoading] = useState(false);
-  const [showBanner, setShowBanner] = useState(true); // State for the banner
+  const [showBanner] = useState(true); // Only keep showBanner
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -70,8 +70,10 @@ export default function BridgeFinder() {
   return (
     <>
       {showBanner && (
-        <div className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 
-          text-center py-2 z-50 shadow-xl">
+        <div
+          className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 
+          text-center py-2 z-50 shadow-xl"
+        >
           <div className="relative max-w-4xl mx-auto px-4">
             <h2 className="text-sm font-black text-white/90">
               LIVE AGAIN! WITH BRAND NEW, LIGHTNING-FAST RESULTS ⚡️
