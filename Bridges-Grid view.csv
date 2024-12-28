@@ -1,0 +1,57 @@
+﻿bridge_name,supported_chains,base_url
+Across,"Arbitrum,Base,Blast,Ethereum,Linea,Lisk,Mode,Optimism,Polygon,Redstone,Scroll,Zora,zkSync Era",https://app.across.to
+Allbridge,"Arbitrum,Avalanche,Base,BNB Chain,Celo,Optimism,Ethereum,Polygon,Solana,Stellar,Tron",https://core.allbridge.io/
+Aptos Bridge,"Ethereum,Aptos,Arbitrum,Optimism,Avalanche,Polygon,BNB Chain",https://theaptosbridge.com/bridge
+Arbitrum Native Bridge,"Ethereum,Arbitrum",https://bridge.arbitrum.io/
+Avalanche Bridge,"Avalanche,Ethereum",https://core.app/en/bridge/
+Base Native Bridge,"Ethereum,Base",https://bridge.base.org/deposit
+Blast Native Bridge,"Ethereum,Blast",https://blast.io/en/bridge
+Brid.gg,"Optimism,Base,Mode,Zora,Redstone,Fraxtal,Lisk,World Chain",https://www.brid.gg/
+Bungee Exchange,"Ethereum,Fantom,Avalanche,Optimism,Arbitrum,Polygon,Aurora,zkSync Era,Polygon zkEVM,Linea,Mantle,Scroll,Blast,BNB Chain,Base,Gnosis",https://www.bungee.exchange
+cBridge,"Astar,BNB Chain,Arbitrum Nova,Fantom,OP Mainnet,Aptos,Flow,Evmos,Moonbeam,Moonriver,Aurora,Aura Mainnet,Blast,Canto,Conflux,Filecoin,Injective,Klaytn,PlatON,Polygon zkEVM,Shiden,X Layer,opBNB,Arbitrum,Base,Bitcoin,zkSync Era,Ethereum,Boba,Gravity,Kava,Manta,Linea,Metis,Oasis,Oasys,Polygon,Scroll,Sui,Xterio Chain",https://cbridge.celer.network
+Chainflip,"Ethereum,Arbitrum,Solana,Bitcoin,Polkadot",https://swap.chainflip.io/
+Connext,"Ethereum,Arbitrum,Optimism,BNB Chain,Polygon,Mode,Gnosis,Linea,Base,Metis",https://bridge.connext.network/
+CrossCats,"Base,Bitcoin",https://app.crosscats.xyz
+deBridge,"Arbitrum,Avalanche,BNB Chain,Ethereum,Polygon,Solana,Linea,Base,Optimism,Neon,Gnosis,Metis,BitRock",https://app.debridge.finance/
+Everclear,"Ethereum,Optimism,BNB Chain,Base,Arbitrum",https://explorer.everclear.org/intents/create
+Eywa,"BNB Chain,Polygon,Arbitrum,Ethereum,Optimism,Avalanche,Base,Gnosis,Blast,Mantle,Linea,Taiko,Unit Zero",https://app.eywa.fi/
+Garden Finance,"Ethereum,Bitcoin,Arbitrum,Polygon,Optimism,Avalanche,BNB Chain",https://garden.finance/swap/
+Gas.zip,"Eclipse,Gravity,Morph,Solana,Taiko,Aptos,Fuel,Sui,Aleph Zero,AlienX,Ancient8,ApeChain,Arbitrum,Arbitrum Nova,Astar,Astar zkEVM,Aurora,Avalanche,B3,Bahamut,Base,Beam,BEVM,BiFrost,Bitgert,Bitlayer,BitRock,BitTorrent,Blast,BOB,Boba,BounceBit,Callisto,Canto,Celo,CheeseChain,Clique,Codex,Combo,Conflux,Cronos,Cyber,DeBank,Degen,Dexalot,Dogechain,Dymension,EBI,Endurance,EOS,Ethereum,Etherlink,ETHW,f(x)Core,Fantom,Filecoin,Flame,Flare,Fluence,Forma,Fraxtal,Funkichain,Fuse,Fusion,Geist,Gelios,GM Network,Gnosis,Ham,Harmony,Horizen EON,Hyperliquid,Immutable zkEVM,IOTA EVM,IoTeX,Kaia,Kava,KCC,Kroma,L3X,Lambda,LightLink,Linea,Lisk,Loot,Lukso,Lumia Prism,Lumio,Manta,Mantle,MAP,Matchain,Merlin,Metal,Meter,Metis,Mint,Mode,Moonbeam,Moonriver,Muster,MXC zkEVM,Nahmii,NAL,Numbers,Oasis,Oasys,OKT,opBNB,Optimism,Optopia,OX Chain,PEGO,PlatON,Polygon,Polygon zkEVM,Proof of Play Apex,Proof of Play Boss,PulseChain,Q,Race,Re.al,Redstone,Reya,Rollux,Rootstock,RSS3,Saakuru,Sanko,SatoshiVM,Scroll,Sei,Shape,Shibarium,Shiden,Silicon,Snaxchain,Songbird,Stack,Step,Superposition,Swan,SX Network,Syndicate,Taproot,Telos,Tenet,ThunderCore,Tron,Ultron,VinuChain,Vizing,Wanchain,WEMIX,WINR,X Layer,Xai,XCHAIN,XPLA,Zircuit,zkBase,zkLink Nova,zkSync Era,Zora,AltLayer,B² Network,BNB Chain,BomeChain,Core,Evmos,DFK Chain,Hychain,inEVM,Neon,Archway,RARI,World Chain,Xterio Chain,ZetaChain,ZKFair",https://gas.zip
+Gnosis Bridge,"Ethereum,Gnosis",https://bridge.gnosischain.com/
+Hop,"Ethereum,Arbitrum,Optimism,Polygon,Arbitrum Nova,Gnosis,Base,Linea,Polygon zkEVM",https://app.hop.exchange/
+Interport,"Ethereum,BNB Chain,Blast,Base,Scroll,zkSync Era,Linea,Injective,Manta,Optimism,Polygon,opBNB,zkLink Nova,Polygon zkEVM,Avalanche,Horizen EON,Fantom",https://app.interport.fi
+Jumper,"Bitcoin,Ethereum,Arbitrum,Optimism,Solana,Polygon,Base,zkSync Era,Linea,Gnosis,Avalanche,Fantom,Polygon zkEVM,Fuse,Boba,Moonbeam,Moonriver,Aurora,Metis,Scroll,Mode,Mantle,Rootstock,Blast,Celo,Fraxtal,Taiko,Gravity,Sei,Immutable zkEVM,Cronos,OKX Chain,Velas,Evmos,Harmony,BNB Chain",https://jumper.exchange
+Linea Bridge,"Ethereum,Linea",https://bridge.linea.build/
+Mach Exchange,"Ethereum,Arbitrum,Optimism,Polygon,BNB Chain,opBNB,Mantle,Base,Mode,Celo,Avalanche,Blast,Scroll",https://app.mach.exchange/
+Manta Pacific Bridge,"Manta,Ethereum",https://pacific-bridge.manta.network/
+Mantle Bridge,"Ethereum,Mantle",https://bridge.mantle.xyz/
+Mayan Finance,"Ethereum,Base,Solana,Arbitrum,Optimism,Polygon,Avalanche,BNB Chain",https://swap.mayan.finance/
+Meme Bridge,"AlienX,Arbitrum,Base,Blast,BOB,BNB Chain,Ethereum,Fraxtal,Fuel,Gravity,Kroma,Linea,Manta,Mint,Optimism,Scroll,Swan,Taiko,zkLink Nova,zkSync Era,Zora,ZetaChain",https://www.memebridge.xyz/bridge
+Meson Finance,"Bitcoin,Ethereum,Arbitrum,Optimism,Avalanche,Tron,Solana,Base,Linea,zkSync Era,Blast,Manta,Mode,Ancient8,zkLink Nova,Mantle,Scroll,Polygon zkEVM,opBNB,EOS,Fantom,Aurora,Moonbeam,Cronos,Metis,Kava,Kroma,Aptos,Sui,SKALE Europa,SKALE Nebula,SKALE Calypso,Celo,Gnosis,ZKFair,Core,ZetaChain,inEVM,Merlin,B² Network,BounceBit,Bitlayer,BEVM,AltLayer,Zircuit,Nervos,BNB Chain,BOB,Conflux,MAP,Polygon,TON,X Layer",https://meson.fi
+MiniBridge,"AlienX,Arbitrum,Avalanche,Base,Blast,BOB,Cyber,Ethereum,Fraxtal,Karak,Kroma,Linea,Manta,Mantle,Metis,Mint,Mode,opBNB,Optimism,Polygon,Polygon zkEVM,Redstone,Scroll,Starknet,Taiko,X Layer,ZetaChain,Zircuit,zkLink Nova,zkSync Era,Zora,BNB Chain,Telos",https://minibridge.chaineye.tools/
+Nitro,"Ethereum,Solana,Arbitrum,Linea,Base,Blast,Polygon,Optimism,Avalanche,Scroll,Polygon zkEVM,Mantle,Manta,Rootstock,Mode,Boba,Metis,Arthera,Saakuru,Taiko,SireChain,Router,Rollux,Vanar,Matchain,Tron,Osmosis,Self Chain,BNB Chain,zkSync Era,Dogechain,Oasis,X Layer",https://app.routernitro.com/swap
+OP Superchain Bridge,"Optimism,Ethereum,Metal,Mode,Lisk,Lyra,Fraxtal,Redstone,Zora,PGN,Mint,Orderly Network,Shape,World Chain,Snaxchain,Race,Cyber,Lumio,Ink,Xterio Chain,Swan",https://superbridge.app/
+Orbiter,"Ethereum,Arbitrum,zkSync Era,Starknet,Polygon,Optimism,Loopring,Metis,ZKSpace,Arbitrum Nova,Polygon zkEVM,Scroll,Taiko,Base,Linea,Mantle,X Layer,Zora,Manta,Kroma,ZKFair,Blast,ZetaChain,B² Network,Mode,zkLink Nova,Solana,Morph,Proof of Play Apex,Merlin,BEVM,TON,BOB,Bitlayer,BounceBit,Eclipse,Optopia,Cyber,Mint,AsianX,Zircuit,Fraxtal,Fuse,BomeChain,Gravity,Tron,Mibchain,Lisk,Redstone,Fuel,BNB Chain,Core,Immutable zkEVM,Kaia,opBNB,World Chain",https://www.orbiter.finance
+Owlto,"Blast,Mode,Optimism,X Layer,zkLink Nova,Bitlayer,Polygon zkEVM,BNB Chain,opBNB,Astar zkEVM,Starknet,Polygon,Metis,Fraxtal,Solana,Mantle,Arbitrum Nova,BounceBit,Merlin,Core,MAPO,inEVM,Zircuit,Fuel,Cyber,AlienX,RARI,Redstone,Shape,Swan,Kaia,World Chain,Gnosis,BEVM,Lisk,Fuse,Fractal Bitcoin,Avalanche,BenFen,Matchain,Gravity,U2U Solaris,B² Network,zkSync Era,Cronos,ZetaChain,ZKFair",https://owlto.finance/
+Polygon PoS Bridge,"Ethereum,Polygon",https://portal.polygon.technology/bridge
+Polygon zkEVM Bridge,"Ethereum,Polygon zkEVM",https://portal.polygon.technology/bridge
+Portal Bridge,"Ethereum,Solana,Sui,Arbitrum,Optimism,Base,Avalanche,Celo,Moonbeam,Kaia,Scroll,Mantle,Aptos,X Layer",https://portalbridge.com/
+Rainbow Bridge,"Aurora,Ethereum",https://rainbowbridge.app/
+Relay,"Ancient8,Arbitrum,Arbitrum Nova,Avalanche,B3,Base,Bitcoin,Blast,BOB,Cyber,Degen,Ethereum,Forma,Funkichain,Ham,Hychain,Linea,Lisk,Mint,Mode,Optimism,Polygon,Polygon zkEVM,RARI,Redstone,Scroll,Shape,Solana,Superposition,World Chain,Xai,zkSync Era,Zora,ApeChain,Boba,Proof of Play Apex,Proof of Play Boss",https://relay.link
+Retro Bridge,"TON,Solana,Fuel,Ethereum,Polygon,Avalanche,BNB Chain,Metis,Gravity,Starknet,Mantle,Polygon zkEVM,Optimism,Arbitrum Nova,Zora,Mode,X Layer,Morph,World Chain,zkLink Nova,Blast,Kroma,opBNB,Zircuit,ApeChain,Bitlayer,BOB,B² Network,Merlin,Manta,Mint,RARI,Tron,ZetaChain",https://app.retrobridge.io/
+Rhino.fi,"Scroll,Taiko,TON,Tron,Arbitrum,Avalanche,BNB Chain,Ethereum,Linea,Manta,Mantle,Mode,Optimism,Polygon,Solana,Starknet,X Layer,opBNB,zkSync Era,Base,Blast,Cronos,Kroma,paraDEX,ApeChain",https://app.rhino.fi/
+Rubic,"Ethereum,Arbitrum,Optimism,Polygon,BNB Chain,Avalanche,Base,Mantle,zkSync Era,Linea,Celo,Solana,Tron,TON,Bitcoin,Scroll,Gravity,Mode,Blast,Metis,Rootstock,Fantom,Cronos,PulseChain,Bitlayer,Merlin,Kroma,Filecoin,X Layer,Sei,Moonbeam,Moonriver,ZKFair,Horizen EON,Dash,Cardano,Cosmos Hub,Monero,Osmosis,Litecoin,XRP Ledger,Polkadot,Aptos,Algorand,Near,EOS,Stellar,Secret,Tezos,Aurora,Boba,Astar,XDC Network,Kava,Kaia,zkLink Nova,Manta",https://app.rubic.exchange/
+Scroll Native Bridge,"Ethereum,Scroll",https://scroll.io/bridge
+Skip Go,"Ethereum,Arbitrum,Avalanche,Optimism,Polygon,Base,Linea,BNB Chain,Mantle,Fantom,Moonbeam,Celo,Scroll,Blast,Fraxtal,Osmosis,Cosmos Hub,Kujira,Neutron,Stargaze,Axelar,Umee,Secret,Persistence,Sommelier,Stride,Crescent,Terra,Juno,Evmos,Carbon,Regen,Agoric,Injective,Chihuahua,Akash,Comdex,Archway,Quicksilver,OmniFlix,Migaloo,Mars Hub,Terra Classic,AssetMantle,Gravity Bridge,BitCanna,BitSong,Cheqd,Decentr,Desmos,IRISnet,Impacthub,Jackal,LikeCoin,Lum Network,Sentinel,Noble,Nolus,dYdX,Celestia,Kava",https://go.skip.build
+Squid,"Ethereum,Arbitrum,Avalanche,Optimism,Polygon,Base,Linea,BNB Chain,Mantle,Fantom,Moonbeam,Celo,Scroll,Blast,Fraxtal,Osmosis,Cosmos Hub,Kujira,Neutron,Stargaze,Axelar,Umee,Secret,Persistence,Sommelier,Stride,Crescent,Terra,Juno,Evmos,Carbon,Regen,Agoric,Injective,Chihuahua,Akash,Comdex,Archway,Quicksilver,OmniFlix,Migaloo,Mars Hub,Terra Classic,AssetMantle,Gravity Bridge,BitCanna,BitSong,Cheqd,Decentr,Desmos,IRISnet,Impacthub,Jackal,LikeCoin,Lum Network,Sentinel,Noble,Nolus,dYdX,Celestia,Kava",https://app.squidrouter.com
+Stargate,"Ethereum,Arbitrum,Optimism,Polygon,BNB Chain,Base,Scroll",https://stargate.finance/bridge
+Sui Bridge,"Sui,Ethereum",https://bridge.sui.io/
+Symbiosis,"Bitcoin,TON,Ethereum,Tron,zkSync Era,Scroll,Arbitrum Nova,Avalanche,B² Network,Bahamut,Base,Blast,Boba BNB,Core,Cronos,Fraxtal,Gravity,Linea,Manta,Mantle,Merlin,Metis,Mode,Optimism,Polygon,Polygon zkEVM,Rootstock,Taiko,Telos,ZetaChain,Arbitrum,zkLink Nova,Boba,Kava,Sei",https://app.symbiosis.finance
+Synapse,"Ethereum,Optimism,Polygon,Cronos,BNB Chain,Fantom,World Chain,Metis,Moonbeam,Moonriver,Dogechain,Canto,Base,Klaytn,Arbitrum,Avalanche,DFK Chain,Linea,Blast,Scroll,Aurora,Harmony,Boba",https://synapseprotocol.com/?fromChainId=1
+ThorSwap,"Ethereum,Bitcoin,ThorChain,Arbitrum,Polkadot,Cosmos Hub,Solana,BNB Chain,Avalanche,Kujira,Bitcoin Cash,Litecoin,Dash",https://app.thorswap.finance/swap
+TON Bridge,"Ethereum,TON",https://bridge.ton.org/
+WAN Bridge,"Wanchain,Bitcoin,Ethereum,Arbitrum,Astar,BNB Chain,Base,Blast,Cardano,Celo,Clover P-Chain,Dogecoin,Fantom,Horizen EON,Litecoin,Metis,Moonbeam,Moonriver,Noble,OP Mainnet,Polkadot,Polygon,Solana,Songbird,Telos,Tron,VinuChain,X Layer,XDC Network,XRP Ledger,f(x)Core,zkSync Era,Avalanche,OKT",https://bridge.wanchain.org
+XSwap,"Ethereum,Polygon,Base,Arbitrum,Optimism,BNB Chain,Avalanche,Mode",https://xswap.link/bridge
+yBridge,"Ethereum,Cronos,Scroll,Taiko,Arbitrum,Optimism,Linea,X Layer,Base,BNB Chain,Polygon,zkSync Era,Mantle,Blast,Avalanche,KCC,Polygon zkEVM,Astar,Numbers,Klaytn,Fantom,Moonriver,ThunderCore",https://app.xy.finance/
+zkBridge,"Ethereum,Polygon,Linea,Base,Mantle,BNB Chain,opBNB,Arbitrum,Optimism,Scroll",https://www.zkbridge.com/token
+ZKsync Era Bridge,"zkSync Era,Ethereum",https://bridge.zksync.io/

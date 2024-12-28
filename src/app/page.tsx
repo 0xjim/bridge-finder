@@ -31,52 +31,6 @@ export default function BridgeFinder() {
   const [query, setQuery] = useState('')
   const [result, setResult] = useState<BridgeResult | null>(null)
   const [loading, setLoading] = useState(false)
-  const [requestId, setRequestId] = useState<string | null>(null)
-
-  const startBridgeRequest = async (query: string): Promise<string> => {
-    const response = await fetch('/api/bridges/start', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ query })
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to start bridge request')
-    }
-
-    const data = await response.json()
-    return data.requestId
-  }
-
-  const checkBridgeStatus = async (requestId: string): Promise<BridgeResult> => {
-    const response = await fetch('/api/bridges/status', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ requestId })
-    })
-
-    if (!response.ok) {
-      throw new Error('Failed to check bridge status')
-    }
-
-    const data = await response.json()
-    
-    if (data.status === 'pending') {
-      return {
-        sourceChain: '',
-        destinationChain: '',
-        bridges: [],
-        error: 'Still processing...'
-      }
-    }
-
-    return {
-      sourceChain: data.sourceChain || '',
-      destinationChain: data.destinationChain || '',
-      bridges: data.bridges || [],
-      error: data.error
-    }
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -84,72 +38,29 @@ export default function BridgeFinder() {
     setResult(null)
     
     try {
-      // Start the request
-      const newRequestId = await startBridgeRequest(query)
-      setRequestId(newRequestId)
+      const response = await fetch('/api/bridges/start', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ query })
+      })
 
-      // Poll for results
-      let attempts = 0
-      const maxAttempts = 12 // 2 minutes (12 * 10 seconds)
-
-      const checkResult = async () => {
-        if (attempts >= maxAttempts) {
-          setResult({
-            sourceChain: '',
-            destinationChain: '',
-            bridges: [],
-            error: 'Request timed out. Please try again.'
-          })
-          setLoading(false)
-          return
-        }
-
-        try {
-          const result = await checkBridgeStatus(newRequestId)
-          if (result.bridges.length > 0) {
-            setResult(result)
-            setLoading(false)
-          } else if (result.error !== 'Still processing...') {
-            setResult(result)
-            setLoading(false)
-          } else {
-            attempts++
-            setTimeout(checkResult, 10000) // Check again in 10 seconds
-          }
-        } catch (error) {
-          setResult({
-            sourceChain: '',
-            destinationChain: '',
-            bridges: [],
-            error: 'Failed to check status. Please try again.'
-          })
-          setLoading(false)
-        }
-      }
-
-      // Start polling after 30 seconds instead of 10
-      setTimeout(checkResult, 30000) // First check after 30 seconds
-
+      const result = await response.json()
+      setResult(result)
     } catch (error) {
+      console.error('Error:', error)
       setResult({
         sourceChain: '',
         destinationChain: '',
         bridges: [],
-        error: 'Failed to start request. Please try again.'
+        error: 'Failed to process request'
       })
+    } finally {
       setLoading(false)
     }
   }
 
   return (
     <>
-      <div className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-red-500 via-purple-500 to-pink-500 
-        text-center py-3 z-50 shadow-xl">
-        <p className="text-md font-bold text-white/90">
-          We're currently offline :') Undergoing a backend migration and will be back better!!
-        </p>
-      </div>
-
       <div className={`min-h-screen bg-gradient-to-r from-lime-300 via-yellow-300 to-pink-300 ${inter.className} 
         flex items-center justify-center p-6 pt-24`}>
         <div className="max-w-3xl w-full mx-auto relative">
@@ -223,9 +134,6 @@ export default function BridgeFinder() {
                 <p className="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
                   FINDING YOUR PERFECT BRIDGE... ✨
                 </p>
-                <p className="font-bold text-purple-700 mt-1">
-                  FIRST TIME MIGHT TAKE ~1 MIN!! PLS BE PATIENT 🙏
-                </p>
               </div>
             </div>
           )}
@@ -235,17 +143,11 @@ export default function BridgeFinder() {
               shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
               <AlertCircle className="h-8 w-8 text-red-500 flex-shrink-0" />
               <p className="text-xl font-black bg-gradient-to-r from-red-600 to-pink-500 text-transparent bg-clip-text">
-                {result.error} TRY AGAIN IN A FEW!! ✨
-              </p>
-            </div>
-          )}
-
-          {result && result.bridges.length === 0 && !result.error && (
-            <div className="p-6 bg-white/90 text-yellow-900 rounded-2xl border-4 border-yellow-400 
-              shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
-              <AlertCircle className="h-8 w-8 text-yellow-500 flex-shrink-0" />
-              <p className="text-xl font-black bg-gradient-to-r from-yellow-600 to-pink-500 text-transparent bg-clip-text">
-                NO BRIDGES FOUND!! TRY DIFFERENT CHAINS!! ✨
+                {result.error.includes('Networks not found') || result.error.includes('Network not found')
+                  ? "THE CHAINS YOU ENTERED AREN'T REAL 👎"
+                  : result.error.includes('No bridges found')
+                    ? 'NO BRIDGES FOUND FOR THESE CHAINS!! TRY DIFFERENT ONES!! ✨'
+                    : 'SOMETHING WENT WRONG!! TRY AGAIN IN A FEW!! ✨'}
               </p>
             </div>
           )}
@@ -302,7 +204,7 @@ export default function BridgeFinder() {
                 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 
                   hover:scale-105 transform inline-block transition-transform"
               >
-                0xjim 🫡
+                0xjim ���
               </a>
             </p>
           </footer>
