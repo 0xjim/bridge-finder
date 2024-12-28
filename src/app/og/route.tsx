@@ -1,11 +1,13 @@
-import { ImageResponse } from 'next/og'
+import { ImageResponse } from 'next/og';
 
-export const runtime = 'edge'
+export const runtime = 'edge';
 
 export async function GET() {
   const interBold = await fetch(
-    new URL('https://fonts.gstatic.com/s/inter/v12/UcCo3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZJhjp-Ek-_0ewXbFQ.woff')
-  ).then((res) => res.arrayBuffer())
+    new URL(
+      'https://fonts.gstatic.com/s/inter/v12/UcCo3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZJhjp-Ek-_0ewXbFQ.woff'
+    )
+  ).then((res) => res.arrayBuffer());
 
   return new ImageResponse(
     (
@@ -42,7 +44,7 @@ export async function GET() {
         >
           ⚡️
         </div>
-        
+
         {/* Main content */}
         <div
           style={{
@@ -76,7 +78,8 @@ export async function GET() {
               fontFamily: 'Inter',
             }}
           >
-            No more scavenging for bridges. Find your perfect bridge that supports the chains you want.
+            No more scavenging for bridges. Find your perfect bridge that
+            supports the chains you want.
           </p>
         </div>
       </div>
@@ -92,6 +95,6 @@ export async function GET() {
           weight: 700,
         },
       ],
-    },
-  )
-} 
+    }
+  );
+}

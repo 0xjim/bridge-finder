@@ -1,68 +1,77 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { Inter } from 'next/font/google'
-import dynamic from 'next/dynamic'
-import Image from 'next/image'
+import { useState } from 'react';
+import { Inter } from 'next/font/google';
+import dynamic from 'next/dynamic';
+import Image from 'next/image';
 
-const inter = Inter({ subsets: ['latin'] })
+const inter = Inter({ subsets: ['latin'] });
 
 type Bridge = {
-  name: string
-  url: string
-}
+  name: string;
+  url: string;
+};
 
 type BridgeResult = {
-  sourceChain: string
-  destinationChain: string
-  bridges: Bridge[]
-  error?: string
-}
+  sourceChain: string;
+  destinationChain: string;
+  bridges: Bridge[];
+  error?: string;
+};
 
 // Dynamic imports for icons
-const ArrowRight = dynamic(() => import('lucide-react').then(mod => mod.ArrowRight))
-const Loader2 = dynamic(() => import('lucide-react').then(mod => mod.Loader2))
-const AlertCircle = dynamic(() => import('lucide-react').then(mod => mod.AlertCircle))
-const Sparkles = dynamic(() => import('lucide-react').then(mod => mod.Sparkles))
-const Zap = dynamic(() => import('lucide-react').then(mod => mod.Zap))
-
+const ArrowRight = dynamic(() =>
+  import('lucide-react').then((mod) => mod.ArrowRight)
+);
+const Loader2 = dynamic(() =>
+  import('lucide-react').then((mod) => mod.Loader2)
+);
+const AlertCircle = dynamic(() =>
+  import('lucide-react').then((mod) => mod.AlertCircle)
+);
+const Sparkles = dynamic(() =>
+  import('lucide-react').then((mod) => mod.Sparkles)
+);
+const Zap = dynamic(() => import('lucide-react').then((mod) => mod.Zap));
 
 export default function BridgeFinder() {
-  const [query, setQuery] = useState('')
-  const [result, setResult] = useState<BridgeResult | null>(null)
-  const [loading, setLoading] = useState(false)
+  const [query, setQuery] = useState('');
+  const [result, setResult] = useState<BridgeResult | null>(null);
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setLoading(true)
-    setResult(null)
-    
+    e.preventDefault();
+    setLoading(true);
+    setResult(null);
+
     try {
       const response = await fetch('/api/bridges/start', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
-      })
+        body: JSON.stringify({ query }),
+      });
 
-      const result = await response.json()
-      setResult(result)
+      const result = await response.json();
+      setResult(result);
     } catch (error) {
-      console.error('Error:', error)
+      console.error('Error:', error);
       setResult({
         sourceChain: '',
         destinationChain: '',
         bridges: [],
-        error: 'Failed to process request'
-      })
+        error: 'Failed to process request',
+      });
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
-      <div className={`min-h-screen bg-gradient-to-r from-lime-300 via-yellow-300 to-pink-300 ${inter.className} 
-        flex items-center justify-center p-6 pt-24`}>
+      <div
+        className={`min-h-screen bg-gradient-to-r from-lime-300 via-yellow-300 to-pink-300 ${inter.className} 
+        flex items-center justify-center p-6 pt-24`}
+      >
         <div className="max-w-3xl w-full mx-auto relative">
           <header className="text-center mb-12 relative">
             <div className="flex justify-center mb-6">
@@ -100,12 +109,15 @@ export default function BridgeFinder() {
                   <Loader2 className="animate-spin h-6 w-6 text-purple-500" />
                 ) : (
                   <div className="bg-white rounded-full p-1">
-                    <Sparkles className="text-purple-500 animate-pulse" size={24} />
+                    <Sparkles
+                      className="text-purple-500 animate-pulse"
+                      size={24}
+                    />
                   </div>
                 )}
               </div>
             </div>
-            
+
             <button
               type="submit"
               disabled={loading}
@@ -127,8 +139,10 @@ export default function BridgeFinder() {
           </form>
 
           {loading && (
-            <div className="p-6 bg-white/90 text-purple-900 rounded-2xl border-4 border-purple-400 
-              shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm mt-6">
+            <div
+              className="p-6 bg-white/90 text-purple-900 rounded-2xl border-4 border-purple-400 
+              shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm mt-6"
+            >
               <Loader2 className="h-8 w-8 text-purple-500 animate-spin flex-shrink-0" />
               <div>
                 <p className="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
@@ -139,12 +153,15 @@ export default function BridgeFinder() {
           )}
 
           {!loading && result?.error && (
-            <div className="p-6 bg-white/90 text-red-900 rounded-2xl border-4 border-red-400 
-              shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm">
+            <div
+              className="p-6 bg-white/90 text-red-900 rounded-2xl border-4 border-red-400 
+              shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm"
+            >
               <AlertCircle className="h-8 w-8 text-red-500 flex-shrink-0" />
               <p className="text-xl font-black bg-gradient-to-r from-red-600 to-pink-500 text-transparent bg-clip-text">
-                {result.error.includes('Networks not found') || result.error.includes('Network not found')
-                  ? 'THE CHAINS YOU ENTERED AREN\'T REAL 🥹'
+                {result.error.includes('Networks not found') ||
+                result.error.includes('Network not found')
+                  ? "THE CHAINS YOU ENTERED AREN'T REAL 🥹"
                   : result.error.includes('No bridges found')
                     ? 'NO BRIDGES FOUND FOR THESE CHAINS!! TRY DIFFERENT ONES!! ✨'
                     : 'SOMETHING WENT WRONG!! TRY AGAIN IN A FEW!! ✨'}
@@ -163,10 +180,10 @@ export default function BridgeFinder() {
                   {result.destinationChain} 🚀
                 </span>
               </div>
-              
+
               <div className="grid gap-6 md:grid-cols-2">
                 {result.bridges.map((bridge, index) => (
-                  <div 
+                  <div
                     key={index}
                     className="bg-white/90 backdrop-blur-sm rounded-xl p-6 shadow-xl border-4 border-purple-300 
                       transform hover:scale-105 transition-all hover:rotate-1"
@@ -175,9 +192,12 @@ export default function BridgeFinder() {
                       <h3 className="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
                         {bridge.name}
                       </h3>
-                      <Zap className="text-yellow-400 animate-pulse" size={24} />
+                      <Zap
+                        className="text-yellow-400 animate-pulse"
+                        size={24}
+                      />
                     </div>
-                    
+
                     <a
                       href={bridge.url}
                       target="_blank"
@@ -197,9 +217,9 @@ export default function BridgeFinder() {
           <footer className="text-center mt-12">
             <p className="text-purple-700 font-bold text-base">
               built by{' '}
-              <a 
-                href="https://x.com/0xJim" 
-                target="_blank" 
+              <a
+                href="https://x.com/0xJim"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 
                   hover:scale-105 transform inline-block transition-transform"
@@ -211,5 +231,5 @@ export default function BridgeFinder() {
         </div>
       </div>
     </>
-  )
+  );
 }

@@ -9,7 +9,7 @@ module.exports = {
     extend: {
       animation: {
         'fade-in': 'fadeIn 0.5s ease-out',
-        'spin': 'spin 1s linear infinite',
+        spin: 'spin 1s linear infinite',
       },
       keyframes: {
         fadeIn: {
@@ -24,5 +24,4 @@ module.exports = {
     },
   },
   plugins: [],
-}
-
+};
