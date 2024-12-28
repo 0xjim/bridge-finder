@@ -38,6 +38,7 @@ export default function BridgeFinder() {
   const [query, setQuery] = useState('');
   const [result, setResult] = useState<BridgeResult | null>(null);
   const [loading, setLoading] = useState(false);
+  const [showBanner, setShowBanner] = useState(true); // State for the banner
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -68,6 +69,16 @@ export default function BridgeFinder() {
 
   return (
     <>
+      {showBanner && (
+        <div className="fixed top-0 left-0 right-0 w-full bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-500 
+          text-center py-2 z-50 shadow-xl">
+          <div className="relative max-w-4xl mx-auto px-4">
+            <h2 className="text-sm font-black text-white/90">
+              LIVE AGAIN! WITH BRAND NEW, LIGHTNING-FAST RESULTS ⚡️
+            </h2>
+          </div>
+        </div>
+      )}
       <div
         className={`min-h-screen bg-gradient-to-r from-lime-300 via-yellow-300 to-pink-300 ${inter.className} 
         flex items-center justify-center p-6 pt-24`}
@@ -224,7 +235,7 @@ export default function BridgeFinder() {
                 className="text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-pink-500 
                   hover:scale-105 transform inline-block transition-transform"
               >
-                0xjim ���
+                0xjim 🫡
               </a>
             </p>
           </footer>
