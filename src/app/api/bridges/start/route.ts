@@ -63,6 +63,10 @@ async function extractChains(query: string) {
     const content = response.choices[0].message.content;
     console.log('OpenAI response:', content); // Log the response
 
+    if (!content) {
+      throw new Error('No content returned from OpenAI');
+    }
+
     return JSON.parse(content);
   } catch (error) {
     console.error('Error calling OpenAI:', error);
