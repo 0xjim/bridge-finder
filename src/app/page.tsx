@@ -76,7 +76,7 @@ export default function BridgeFinder() {
         >
           <div className="relative max-w-4xl mx-auto px-4">
             <h2 className="text-sm font-black text-white/90">
-              LIVE AGAIN! WITH BRAND NEW, LIGHTNING-FAST RESULTS ⚡️
+              BRIDGES AND NETWORKS UP TO DATE AS OF MARCH 2026!
             </h2>
           </div>
         </div>
@@ -99,8 +99,9 @@ export default function BridgeFinder() {
             <h1 className="text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 transform hover:scale-105 transition-transform cursor-pointer pb-2">
               TOO MANY BRIDGES!!
             </h1>
-            <p className="text-xl font-bold text-purple-700 animate-bounce">
-              👇👇 FIND YOUR PERFECT BRIDGE NOW 👇👇
+            <p className="text-sm font-bold text-purple-700 animate-bounce">
+              👇👇 TYPE YOUR SOURCE AND DESTINATION CHAIN BELOW TO FIND A BRIDGE
+              👇👇
             </p>
           </header>
 
@@ -111,7 +112,7 @@ export default function BridgeFinder() {
                 type="text"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                placeholder="TYPE YOUR BRIDGE DREAMS HERE ('LEMME GO FROM BASE TO ARBITRUM')"
+                placeholder="'BASE TO ARBITRUM' OR 'BRIDGE FROM ETH TO OPTIMISM'"
                 className="w-full p-4 rounded-full border-4 border-purple-400 shadow-xl 
                   focus:ring-4 focus:ring-yellow-300 focus:border-purple-500 
                   transition-all text-base font-bold bg-white/90 backdrop-blur-sm"
@@ -158,8 +159,11 @@ export default function BridgeFinder() {
             >
               <Loader2 className="h-8 w-8 text-purple-500 animate-spin flex-shrink-0" />
               <div>
-                <p className="text-xl font-black bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
-                  FINDING YOUR PERFECT BRIDGE... ✨
+                <p className="text-xl font-black">
+                  <span className="bg-gradient-to-r from-purple-600 to-pink-500 text-transparent bg-clip-text">
+                    SEARCHING FOR BRIDGES BETWEEN YOUR CHAINS...
+                  </span>{' '}
+                  ✨
                 </p>
               </div>
             </div>
@@ -171,13 +175,19 @@ export default function BridgeFinder() {
               shadow-xl flex items-center gap-4 animate-fade-in backdrop-blur-sm"
             >
               <AlertCircle className="h-8 w-8 text-red-500 flex-shrink-0" />
-              <p className="text-xl font-black bg-gradient-to-r from-red-600 to-pink-500 text-transparent bg-clip-text">
+              <p className="text-xl font-black">
+                <span className="bg-gradient-to-r from-red-600 to-pink-500 text-transparent bg-clip-text">
+                  {result.error.includes('Networks not found') ||
+                  result.error.includes('Network not found')
+                    ? "WE DON'T RECOGNIZE THOSE CHAINS!! DOUBLE CHECK YOUR SPELLING OR TRY ANOTHER NETWORK"
+                    : result.error.includes('No bridges found')
+                      ? 'NO BRIDGES SUPPORT THAT ROUTE YET!! TRY A DIFFERENT CHAIN PAIR!!'
+                      : 'SOMETHING WENT WRONG!! TRY AGAIN IN A FEW!!'}
+                </span>{' '}
                 {result.error.includes('Networks not found') ||
                 result.error.includes('Network not found')
-                  ? "THE CHAINS YOU ENTERED AREN'T REAL 🥹"
-                  : result.error.includes('No bridges found')
-                    ? 'NO BRIDGES FOUND FOR THESE CHAINS!! TRY DIFFERENT ONES!! ✨'
-                    : 'SOMETHING WENT WRONG!! TRY AGAIN IN A FEW!! ✨'}
+                  ? '🥹'
+                  : '✨'}
               </p>
             </div>
           )}
@@ -219,7 +229,7 @@ export default function BridgeFinder() {
                         text-white py-3 rounded-full font-black text-base hover:opacity-90 
                         transition-opacity transform hover:scale-105 shadow-lg text-center"
                     >
-                      BRIDGE NOW!!! ✨
+                      GO TO BRIDGE!!! ✨
                     </a>
                   </div>
                 ))}

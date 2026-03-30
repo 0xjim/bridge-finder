@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
+import { buildBridgeUrl } from '@/lib/bridge-deeplinks';
 import Anthropic from '@anthropic-ai/sdk';
 
 const anthropic = new Anthropic({
@@ -127,13 +128,18 @@ export async function POST(request: Request) {
       },
     });
 
-    // Return results directly
+    // Return results with deep-linked URLs
     return NextResponse.json({
       sourceChain: sourceNetwork.networkName,
       destinationChain: destinationNetwork.networkName,
       bridges: bridges.map((b) => ({
         name: b.bridgeName,
-        url: b.baseUrl,
+        url: buildBridgeUrl(
+          b.bridgeName,
+          b.baseUrl,
+          sourceNetwork.networkName,
+          destinationNetwork.networkName
+        ),
       })),
     });
   } catch (error) {

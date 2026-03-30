@@ -1,7 +1,6 @@
 bridge_name,supported_chains,base_url
 Across,"Arbitrum,BNB Chain,Base,Blast,Ethereum,Hyperliquid,Ink,Lens,Linea,Lisk,MegaETH,Mode,Monad,Optimism,Plasma,Polygon,Scroll,Soneium,Tempo,Unichain,World Chain,Zora,zkSync Era",https://app.across.to
 Allbridge,"Avalanche,BNB Chain,Base,Celo,Ethereum,Fantom,Linea,Optimism,Polygon,Unichain",https://core.allbridge.io/
-Aptos Bridge,"Ethereum,Aptos,Arbitrum,Optimism,Avalanche,Polygon,BNB Chain",https://theaptosbridge.com/bridge
 Arbitrum Native Bridge,"Ethereum,Arbitrum",https://bridge.arbitrum.io/
 Avalanche Bridge,"Avalanche,Ethereum",https://core.app/en/bridge/
 Base Native Bridge,"Ethereum,Base",https://bridge.base.org/deposit
