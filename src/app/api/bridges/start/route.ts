@@ -1,10 +1,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
-import OpenAI from 'openai';
+import Anthropic from '@anthropic-ai/sdk';
 
-// Initialize OpenAI
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+const anthropic = new Anthropic({
+  apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
 async function findChainByNameOrAlias(chainName: string) {
@@ -55,27 +54,35 @@ async function findChainByNameOrAlias(chainName: string) {
 }
 
 async function extractChains(query: string) {
-  const prompt = `Extract source and destination chain names from the following query. Return a JSON object with 'source' and 'destination' fields. Query: "${query}"`;
+  const prompt = `Extract source and destination chain names from the following query. Return ONLY a JSON object with 'source' and 'destination' fields, no other text. Query: "${query}"`;
 
-  console.log('OpenAI prompt:', prompt); // Log the prompt
+  console.log('Claude prompt:', prompt);
 
   try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-3.5-turbo',
+    const response = await anthropic.messages.create({
+      model: 'claude-haiku-4-5-20251001',
+      max_tokens: 100,
       messages: [{ role: 'user', content: prompt }],
     });
 
-    const content = response.choices[0].message.content;
-    console.log('OpenAI response:', content); // Log the response
+    const content =
+      response.content[0].type === 'text' ? response.content[0].text : null;
+    console.log('Claude response:', content);
 
     if (!content) {
-      throw new Error('No content returned from OpenAI');
+      throw new Error('No content returned from Claude');
     }
 
-    return JSON.parse(content);
+    // Strip markdown code fences if present
+    const cleaned = content
+      .replace(/```(?:json)?\s*/g, '')
+      .replace(/```\s*/g, '')
+      .trim();
+
+    return JSON.parse(cleaned);
   } catch (error) {
-    console.error('Error calling OpenAI:', error);
-    throw new Error('Failed to extract chains from OpenAI');
+    console.error('Error calling Claude:', error);
+    throw new Error('Failed to extract chains from Claude');
   }
 }
 
@@ -88,7 +95,7 @@ export async function POST(request: Request) {
       throw new Error('No query provided');
     }
 
-    // Extract chains using OpenAI
+    // Extract chains using Claude
     const { source, destination } = await extractChains(body.query);
 
     // Look up official chain names
