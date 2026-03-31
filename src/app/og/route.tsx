@@ -3,7 +3,7 @@ import { ImageResponse } from 'next/og';
 export const runtime = 'edge';
 
 export async function GET() {
-  const interBold = await fetch(
+  const interBlack = await fetch(
     new URL(
       'https://fonts.gstatic.com/s/inter/v12/UcCo3FwrK3iLTeHuS_fvQtMwCp50KnMw2boKoduKmMEVuFuYAZJhjp-Ek-_0ewXbFQ.woff'
     )
@@ -19,17 +19,19 @@ export async function GET() {
           flexDirection: 'column',
           alignItems: 'center',
           justifyContent: 'center',
-          background: 'linear-gradient(to right, #84cc16, #fde047, #fca5a5)',
+          background: 'linear-gradient(to right, #bfff00, #fcd34d, #fda8a8)',
           padding: '40px',
+          fontFamily: 'Inter',
+          position: 'relative',
         }}
       >
-        {/* Decorative elements */}
+        {/* Decorative corner elements */}
         <div
           style={{
             position: 'absolute',
-            top: '20px',
-            right: '20px',
-            fontSize: '72px',
+            top: '30px',
+            right: '30px',
+            fontSize: '60px',
           }}
         >
           ✨
@@ -37,15 +39,15 @@ export async function GET() {
         <div
           style={{
             position: 'absolute',
-            bottom: '20px',
-            left: '20px',
-            fontSize: '72px',
+            bottom: '30px',
+            left: '30px',
+            fontSize: '60px',
           }}
         >
           ⚡️
         </div>
 
-        {/* Main content */}
+        {/* Main content container */}
         <div
           style={{
             display: 'flex',
@@ -53,33 +55,51 @@ export async function GET() {
             alignItems: 'center',
             justifyContent: 'center',
             textAlign: 'center',
+            zIndex: 10,
           }}
         >
+          {/* Large title */}
           <h1
             style={{
-              fontSize: '82px',
+              fontSize: '96px',
               fontWeight: 900,
-              background: 'linear-gradient(to right, #9333ea, #3b82f6)',
+              background: 'linear-gradient(to right, #7c3aed, #3b82f6)',
               backgroundClip: 'text',
               color: 'transparent',
-              marginBottom: '20px',
-              fontFamily: 'Inter',
+              margin: '0 0 20px 0',
+              lineHeight: '1',
+              letterSpacing: '-2px',
             }}
           >
-            TOO MANY BRIDGES!!
+            HELP ME
           </h1>
+          <h1
+            style={{
+              fontSize: '96px',
+              fontWeight: 900,
+              background: 'linear-gradient(to right, #7c3aed, #3b82f6)',
+              backgroundClip: 'text',
+              color: 'transparent',
+              margin: '0 0 30px 0',
+              lineHeight: '1',
+              letterSpacing: '-2px',
+            }}
+          >
+            BRIDGE!!
+          </h1>
+
+          {/* Subtitle */}
           <p
             style={{
-              fontSize: '36px',
+              fontSize: '32px',
               color: '#6b21a8',
               fontWeight: 'bold',
-              maxWidth: '800px',
+              maxWidth: '900px',
               textAlign: 'center',
-              fontFamily: 'Inter',
+              margin: '0',
             }}
           >
-            No more scavenging for bridges. Find your perfect bridge that
-            supports the chains you want.
+            Find the perfect bridge for your chains ⚡️
           </p>
         </div>
       </div>
@@ -90,9 +110,9 @@ export async function GET() {
       fonts: [
         {
           name: 'Inter',
-          data: interBold,
+          data: interBlack,
           style: 'normal',
-          weight: 700,
+          weight: 900,
         },
       ],
     }
