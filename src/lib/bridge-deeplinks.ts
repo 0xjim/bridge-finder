@@ -27,7 +27,8 @@ const BRIDGE_BUILDERS: Record<string, UrlBuilder> = {
     const f = id(from),
       t = id(to);
     if (!f || !t) return null;
-    return `https://jumper.exchange/?fromChain=${f}&toChain=${t}`;
+    const nativeToken = '0x0000000000000000000000000000000000000000';
+    return `https://jumper.exchange/?fromChain=${f}&toChain=${t}&fromToken=${nativeToken}&toToken=${nativeToken}`;
   },
 
   Stargate: (_, from, to) => {

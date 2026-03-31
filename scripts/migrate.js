@@ -47,14 +47,19 @@ async function migrateBridges() {
         ? row.supported_chains.split(',').map((c) => c.trim())
         : [];
 
-      await prisma.bridge.create({
-        data: {
+      await prisma.bridge.upsert({
+        where: { bridgeName: row.bridge_name },
+        update: {
+          baseUrl: row.base_url,
+          supportedChains: chains,
+        },
+        create: {
           bridgeName: row.bridge_name,
           baseUrl: row.base_url,
           supportedChains: chains,
         },
       });
-      console.log(`Created bridge: ${row.bridge_name}`);
+      console.log(`Upserted bridge: ${row.bridge_name}`);
     } catch (error) {
       console.error(`Error migrating bridge ${row.bridge_name}:`, error);
     }

@@ -97,7 +97,7 @@ export default function BridgeFinder() {
               />
             </div>
             <h1 className="text-5xl font-black mb-4 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500 transform hover:scale-105 transition-transform cursor-pointer pb-2">
-              TOO MANY BRIDGES!!
+              HELP ME BRIDGE!!
             </h1>
             <p className="text-sm font-bold text-purple-700 animate-bounce">
               👇👇 TYPE YOUR SOURCE AND DESTINATION CHAIN BELOW TO FIND A BRIDGE

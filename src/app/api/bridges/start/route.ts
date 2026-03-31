@@ -128,11 +128,9 @@ export async function POST(request: Request) {
       },
     });
 
-    // Return results with deep-linked URLs
-    return NextResponse.json({
-      sourceChain: sourceNetwork.networkName,
-      destinationChain: destinationNetwork.networkName,
-      bridges: bridges.map((b) => ({
+    // Return results with deep-linked URLs, sorted alphabetically
+    const bridgeResults = bridges
+      .map((b) => ({
         name: b.bridgeName,
         url: buildBridgeUrl(
           b.bridgeName,
@@ -140,7 +138,13 @@ export async function POST(request: Request) {
           sourceNetwork.networkName,
           destinationNetwork.networkName
         ),
-      })),
+      }))
+      .sort((a, b) => a.name.localeCompare(b.name));
+
+    return NextResponse.json({
+      sourceChain: sourceNetwork.networkName,
+      destinationChain: destinationNetwork.networkName,
+      bridges: bridgeResults,
     });
   } catch (error) {
     console.error('Error in start API:', error);
