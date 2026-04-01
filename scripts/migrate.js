@@ -19,13 +19,17 @@ async function migrateNetworks() {
         ? row.common_aliases.split(',').map((a) => a.trim())
         : [];
 
-      await prisma.network.create({
-        data: {
+      await prisma.network.upsert({
+        where: { networkName: row.network_name },
+        update: {
+          commonAliases: aliases,
+        },
+        create: {
           networkName: row.network_name,
           commonAliases: aliases,
         },
       });
-      console.log(`Created network: ${row.network_name}`);
+      console.log(`Upserted network: ${row.network_name}`);
     } catch (error) {
       console.error(`Error migrating network ${row.network_name}:`, error);
     }
